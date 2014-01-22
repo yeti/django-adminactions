@@ -3,7 +3,7 @@ from django.forms.models import ModelForm
 from .api import csv
 from django.forms.widgets import SelectMultiple
 from django.utils import formats
-from adminactions.api import delimiters, quotes
+from api import delimiters, quotes
 
 
 class GenericActionForm(ModelForm):

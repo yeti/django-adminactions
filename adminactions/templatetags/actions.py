@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.template import Library
-from adminactions.utils import get_field_value, get_verbose_name
+from adminactions.adminactions.utils import get_field_value, get_verbose_name
 
 
 register = Library()

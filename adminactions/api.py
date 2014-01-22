@@ -6,7 +6,7 @@ from django.db import transaction
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ManyToManyField, OneToOneField
 from django.http import HttpResponse
-from adminactions.templatetags.actions import get_field_value
+from templatetags.actions import get_field_value
 
 try:
     import unicodecsv as csv
@@ -14,7 +14,7 @@ except ImportError:
     import csv
 from django.utils.encoding import smart_str
 from django.utils import dateformat
-from adminactions.utils import clone_instance, get_field_by_path, get_copy_of_instance, getattr_or_item  # NOQA
+from utils import clone_instance, get_field_by_path, get_copy_of_instance, getattr_or_item  # NOQA
 
 csv_options_default = {'date_format': 'd/m/Y',
                        'datetime_format': 'N j, Y, P',
@@ -46,6 +46,8 @@ def merge(master, other, fields=None, commit=False, m2m=None, related=None):
     @param related: list of related fieldnames to merge. If empty will be removed
     @return:
     """
+
+    print 'actually in this function'
 
     fields = fields or [f.name for f in master._meta.fields]
 

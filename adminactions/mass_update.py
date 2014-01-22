@@ -21,10 +21,10 @@ from django.utils.datastructures import SortedDict
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from adminactions.models import get_permission_codename
-from adminactions.exceptions import ActionInterrupted
-from adminactions.forms import GenericActionForm
-from adminactions.signals import adminaction_requested, adminaction_start, adminaction_end
+from models import get_permission_codename
+from exceptions import ActionInterrupted
+from forms import GenericActionForm
+from signals import adminaction_requested, adminaction_start, adminaction_end
 
 
 DO_NOT_MASS_UPDATE = 'do_NOT_mass_UPDATE'

@@ -3,7 +3,7 @@
 import django
 from datetime import datetime
 from django.utils.encoding import force_unicode
-from adminactions import api
+import api
 from django.contrib import messages
 from django.contrib.admin import helpers
 from django import forms
@@ -16,10 +16,10 @@ from django.template import RequestContext
 from django.utils.safestring import mark_safe
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext as _
-from adminactions.forms import GenericActionForm
-from adminactions.models import get_permission_codename
-from adminactions.utils import clone_instance, model_supports_transactions
-import adminactions.compat as transaction
+from forms import GenericActionForm
+from models import get_permission_codename
+from utils import clone_instance, model_supports_transactions
+import compat as transaction
 
 
 class MergeForm(GenericActionForm):
@@ -133,7 +133,7 @@ def merge(modeladmin, request, queryset):
             else:
                 related = None
             fields = form.cleaned_data['field_names']
-            api.merge(master, other, fields=fields, commit=True, related=related)
+            api.merge(master, other, fields=fields, commit=True, m2m=related, related=related)
             return HttpResponseRedirect(request.path)
         else:
             messages.error(request, form.errors)
@@ -145,9 +145,10 @@ def merge(modeladmin, request, queryset):
                 if isinstance(field, models.DateTimeField):
                     for target in (master, other):
                         raw_value = getattr(target, field.name)
-                        fixed_value = datetime(raw_value.year, raw_value.month, raw_value.day,
-                                               raw_value.hour, raw_value.minute, raw_value.second)
-                        setattr(target, field.name, fixed_value)
+                        if raw_value:
+                            fixed_value = datetime(raw_value.year, raw_value.month, raw_value.day,
+                                                   raw_value.hour, raw_value.minute, raw_value.second)
+                            setattr(target, field.name, fixed_value)
         except ValueError:
             messages.error(request, _('Please select exactly 2 records'))
             return

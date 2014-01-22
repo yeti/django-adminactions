@@ -16,8 +16,8 @@ from django.template.context import RequestContext
 from django.utils.encoding import force_unicode
 from django.contrib.admin import helpers
 
-from adminactions.exceptions import ActionInterrupted
-from adminactions.signals import adminaction_requested, adminaction_start, adminaction_end
+from exceptions import ActionInterrupted
+from signals import adminaction_requested, adminaction_start, adminaction_end
 
 
 def graph_form_factory(model):

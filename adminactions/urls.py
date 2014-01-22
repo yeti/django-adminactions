@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from adminactions.views import format_date
+from views import format_date
 
 
 urlpatterns = patterns('',
